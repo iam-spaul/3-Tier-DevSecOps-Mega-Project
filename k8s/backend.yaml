@@ -1,5 +1,4 @@
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,9 +23,9 @@ spec:
         - containerPort: 5000
         env:
         - name: DB_HOST
-          value: "mysq-svc"  # Use the service name and database name
+          value: "mysql-svc"  # ✅ Fixed typo
         - name: DB_USER
-          value: "root"  # MySQL root user
+          value: "root"
         - name: DB_PASSWORD
           valueFrom:
             secretKeyRef:
@@ -35,13 +34,14 @@ spec:
         - name: DB_NAME
           valueFrom:
             configMapKeyRef:
-              name: mysql-databse-name-config
+              name: mysql-database-name-config  # ✅ Fixed typo
               key: MYSQL_DATABASE
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: backend-svc
+  namespace: prod
 spec:
   selector:
     app: backend-app
@@ -50,4 +50,3 @@ spec:
       port: 5000
       targetPort: 5000
   type: ClusterIP
----
