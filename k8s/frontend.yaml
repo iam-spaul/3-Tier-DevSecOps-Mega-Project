@@ -31,11 +31,12 @@ metadata:
   namespace: prod
 spec:
   selector:
-    app.kubernetes.io/name: frontend-app
+    app: frontend-app   # ✅ Correct label
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
   type: ClusterIP
+
 
 
